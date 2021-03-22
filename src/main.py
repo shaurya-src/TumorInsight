@@ -69,7 +69,7 @@ def FCM():
             read = ReadImage(imageName)
             print("THIS IS READ", read.getData())
             self.X, self.numPixels = read.getData()
-            self.X = self.X.astype(np.float)
+            self.X = self.X.astype(np.float64)
             print("initial X:", self.X, self.X.shape)
 
             self.U = []
@@ -78,7 +78,7 @@ def FCM():
                 l = [0 for j in range(n_clusters)]
                 l[index] = 1
                 self.U.append(l)
-            self.U = np.array(self.U).astype(np.float)
+            self.U = np.array(self.U).astype(np.float64)
             self.U = self.U.reshape(self.numPixels, self.n_clusters)
 
             # self.U_new = np.zeros((self.numPixels,self.n_clusters))
@@ -89,7 +89,7 @@ def FCM():
             self.C = [1, 85, 255]
             # self.C = [0,255]
             # self.C = [150,200]
-            self.C = np.array(self.C).astype(np.float)
+            self.C = np.array(self.C).astype(np.float64)
             self.C = self.C.reshape(self.n_clusters, 1)
             print("initial C:\n", self.C, self.C.shape)
 
@@ -127,7 +127,7 @@ def FCM():
         def calculate_h(self):
             # self.h = np.zeros((self.n_clusters,self.numPixels))
             h = np.zeros((self.n_clusters,self.numPixels))
-            u_rolled = np.zeros((self.numPixels ** 0.5,self.numPixels ** 0.5))
+            u_rolled = np.zeros(int(self.numPixels ** 0.5,self.numPixels ** 0.5))
             kernel = np.ones((5,5))
             # kernel[2][2] = 4
             # kernel[2][1] = kernel[1][2] = kernel[3][2] = kernel[2][3] = 2
@@ -168,7 +168,7 @@ def FCM():
             self.U = np.copy(self.U_new)
 
         def calculate_DB_score(self):
-            sigma = np.zeros((3,1)).astype(np.float)
+            sigma = np.zeros((3,1)).astype(np.float64)
             count = np.zeros((3,1))
             result = np.zeros(shape=(self.numPixels,1))
             result = np.argmax(self.U, axis = 1)
@@ -310,7 +310,7 @@ def FCM():
 
 
 def ABC():
-    temp=asarray(Image.open('usedforabc.TIF'))
+    temp=np.asarray(Image.open('usedforabc.TIF'))
     x=temp.shape[0]
     y=temp.shape[1]
     temp.resize((x,y)) # a 2D array
@@ -472,7 +472,7 @@ def ABC():
     plt.show()
     
 def Watershed():
-    image=skimage.io.imread('useforwatershed.TIF', as_grey=True)
+    image=imread('useforwatershed.TIF', as_grey=True)
   
     # denoise image
     denoised = rank.median(image, disk(10))
