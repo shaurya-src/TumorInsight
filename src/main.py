@@ -127,7 +127,7 @@ def FCM():
         def calculate_h(self):
             # self.h = np.zeros((self.n_clusters,self.numPixels))
             h = np.zeros((self.n_clusters,self.numPixels))
-            u_rolled = np.zeros(int(self.numPixels ** 0.5,self.numPixels ** 0.5))
+            u_rolled = np.zeros((self.numPixels ** 0.5,self.numPixels ** 0.5))
             kernel = np.ones((5,5))
             # kernel[2][2] = 4
             # kernel[2][1] = kernel[1][2] = kernel[3][2] = kernel[2][3] = 2
