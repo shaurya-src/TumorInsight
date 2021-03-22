@@ -196,3 +196,77 @@ def FCM():
 
             DB_score = (D0 + D1 + D2)/self.n_clusters
             print("DB_score: ",DB_score)
+
+        def calculate_scores(self):
+            self.Vpc = 0.0
+            sum_j = 0.0
+            for j in range(self.numPixels):
+                sum_i = 0.0
+                for i in range(self.n_clusters):
+                    sum_i += self.U[j][i] ** 2
+                    #print("sum_i: ",sum_i)
+                sum_j += sum_i
+                #print("sum_j: ",sum_j)
+            self.Vpc = sum_j/self.numPixels
+            print("VPC: ",self.Vpc)
+
+            self.Vpe = 0.0
+            sum_j = 0.0
+            for j in range(self.numPixels):
+                sum_i = 0
+                for j in range(self.n_clusters):
+                    sum_i += self.U[j][i] * math.log(self.U[j][i])
+                sum_j += sum_i
+            self.Vpe = -1 * (sum_j/self.numPixels)
+            print("VPE: ",self.Vpe)
+
+            self.Vxb = 0.0
+            sum_j = 0.0
+            for j in range(self.numPixels):
+                sum_i = 0
+                for i in range(self.n_clusters):
+                    sum_i += self.U[j][i] * (self.eucledian_dist(self.X[j],self.C[i]) ** 2)
+                sum_j += sum_i
+            numer = 1 * sum_j
+            #dist = [ self.eucledian_dist(self.C[0],self.C[1]) ** 2, self.eucledian_dist(self.C[1],self.C[2]) ** 2 ,self.eucledian_dist(self.C[0],self.C[2]) ** 2]
+            #denom = self.numPixels * min(dist)
+            denom = self.numPixels * ( self.eucledian_dist(self.C[0],self.C[1]) ** 2 )
+            self.Vxb = numer/denom
+            print("VXB: ",self.Vxb)
+
+            self.calculate_DB_score()
+            self.calculate_D_score()
+
+
+
+            def eucledian_dist(self,a,b):
+                return np.linalg.norm(a-b)
+
+            def form_clusters(self):
+                d = 100
+                if self.max_iter != -1:
+                    for i in range(self.max_iter):
+                        print("loop : " , int(i))
+                        self.update_C()
+                        #temp = np.copy(self.U)
+                        temp = np.copy(self.U_new)
+                        self.update_U()
+                        self.compute_intuitionistic_U()
+                        self.computeNew_U()
+                        d = sum(abs(sum(self.U_new - temp)))
+                        print("THIS IS D")
+                        print(d)
+                        self.segmentImage(i)
+                        if d < self.epsilon:
+                            break
+                else:
+                    i = 0
+                    while d > self.epsilon:
+                        self.update_C()
+                        temp = np.copy(self.U)
+                        self.update_U()
+                        d = sum(abs(sum(self.U - temp)))
+                        print("loop : " , int(i))
+                        print(d)
+                        self.segmentImage(i)
+                        i += 1
