@@ -7,7 +7,7 @@ from imageio import imread
 from scipy import ndimage, misc
 from PIL import Image
 from tkinter.filedialog import askopenfilename
-from tkinter import Tk, ttk, messagebox
+from tkinter import Tk, ttk, messagebox, Label
 import sys
 import random
 import math
@@ -43,8 +43,8 @@ def process():
     img = cv2.imread(filename)
     global blur
     blur = cv2.bilateralFilter(img, 9, 75, 75)
-    b = numpy.zeros([blur.shape[0], blur.shape[1], blur.shape[2]])
-    b = numpy.copy(blur)
+    b = np.zeros([blur.shape[0], blur.shape[1], blur.shape[2]])
+    b = np.copy(blur)
     cv2.imwrite('color_img.tif', b)
 
     # s=cv2.imread(blur,0)
@@ -306,4 +306,239 @@ def FCM():
         #cluster.show_result()
 
     if __name__ == '__main__':
-            main()
+        main()
+
+
+def ABC():
+    temp=asarray(Image.open('usedforabc.TIF'))
+    x=temp.shape[0]
+    y=temp.shape[1]
+    temp.resize((x,y)) # a 2D array
+    #print(temp)
+    NP=temp.shape[0]
+    FoodNumber=NP/2
+    Foods=[[0 for x in range(0,D)]for x in range(0,FoodNumber)]
+    foods=temp
+    f=[0 for x in range(0,FoodNumber)]
+    fitness=[0 for x in range(0,FoodNumber)]
+    trial=[0 for x in range(0,FoodNumber)]
+    prob=[0 for x in range(0,FoodNumber)]
+    solution=[0 for x in range(0,D)]
+    GlobalParams=[0 for x in range(0,D)]
+    GlobalMins=[0 for x in range(0,runtime)]
+    
+    def CalculateFitness(fun):
+        result=0.0
+        if fun>=0:
+            result=1/(fun+1)
+        else:
+            result=1+abs(fun)
+        return result
+
+
+    def MemoriseBestSource():
+        global GlobalMin
+        for i in range(0, FoodNumber):
+            if(f[i]<GlobalMin):
+                GlobalMin = f[i]
+                for j in range(0,D):
+                    GlobalParams[j]=Foods[i][j]
+
+    def init(index):
+        for j in range(0,D):
+            r= round(random.uniform(0.0,1.0),6)#/(RAND_MAX+1)
+            Foods[index][j]=(r*(ub-lb)+lb)
+            solution[j]=Foods[index][j]
+        f[index]=Rosenbrock(solution)
+        fitness[index]=CalculateFitness(f[index])
+        trial[index]=0
+
+    def initial():
+        for i in range(0,FoodNumber):
+            init(i)
+        GlobalMin=f[0]
+        for i in range(0,D):
+            GlobalParams[i]=Foods[0][i]
+
+    def Rosenbrock(sol):
+        top=0
+        for j in range(0,D):
+            top=top+sol[j]*sol[j]
+        return top
+
+
+    def SendEmployedBees():
+        for i in range(0,FoodNumber):
+            r= random.randint(0,49)#/(RAND_MAX+1)
+            param2change=r
+            r= random.randint(0,19)#/(RAND_MAX+1)
+            neighbour=r
+            while(neighbour==i):
+                r=round(random.uniform(0.0,1.0),6)#/(RAND_MAX+1)
+                neighbour=int(r*FoodNumber)
+            for j in range(0,D):
+                solution[j]=Foods[i][j]
+            r= round(random.uniform(0.0,1.0),6)#/(RAND_MAX+1)
+            solution[param2change]=Foods[i][param2change]+(Foods[i][param2change]-Foods[neighbour][param2change])*(r-0.5)*2
+            if(solution[param2change]<lb):
+                solution[param2change]=lb
+            if(solution[param2change]>ub):
+                solution[param2change]=ub
+            ObjValSol=Rosenbrock(solution)
+            FitnessSol=CalculateFitness(ObjValSol)
+            if(FitnessSol>fitness[i]):
+                trial[i]=0
+                for j in range(0,D):
+                    Foods[i][j]=solution[j]
+                    f[i]=ObjValSol
+                    fitness[i]=FitnessSol
+            else:
+                trial[i]=trial[i]+1
+
+    def CalculateProbabilities():
+        maxfit=float(fitness[0])
+        for i in range(0,FoodNumber):
+            if(fitness[i]>maxfit):
+                maxfit=fitness[i]
+        for i in range(0,FoodNumber):
+            prob[i]=(0.9*(fitness[i]/maxfit))+0.1
+
+    def SendOnlookerBees():
+        t=0
+        i=0
+        while(t<FoodNumber):
+            r= round(random.uniform(0.0,1.0),6)#/(RAND_MAX+1)
+            if(r<prob[i]):
+                t=t+1
+            r= random.randint(0,49)#/(RAND_MAX+1)
+            param2change=r
+            r= random.randint(0,19)#/(RAND_MAX+1)
+            neighbour=r
+            while(neighbour==i):
+                r= round(random.uniform(0.0,1.0),6)#/(RAND_MAX+1)
+                neighbour=int(r*FoodNumber)
+            for j in range(0,D):
+                solution[j]=Foods[i][j]
+            r= round(random.uniform(0.0,1.0),6)#(RAND_MAX+1)
+            #print r
+            solution[param2change]=Foods[i][param2change]+(Foods[i][param2change]-Foods[neighbour][param2change])*(r-0.5)*2
+            if(solution[param2change]<lb):
+                solution[param2change]=lb
+            if(solution[param2change]>ub):
+                solution[param2change]=ub
+            ObjValSol=Rosenbrock(solution)
+            FitnessSol=CalculateFitness(ObjValSol)
+            if(FitnessSol>fitness[i]):
+                trial[i]=0
+                for j in range(0,D):
+                    Foods[i][j]=solution[j]
+                    f[i]=ObjValSol
+                    fitness[i]=FitnessSol
+            else:
+                trial[i]=trial[i]+1
+            i=i+1
+            if(i==FoodNumber):
+                i=0
+
+    def SendScoutBees():
+        materialindex=0
+        for i in range(0,FoodNumber):
+            if(trial[i]>trial[materialindex]):
+                materialindex=i
+        if(trial[materialindex]>=limit):
+            init(materialindex)
+
+    mean=0.0
+    for run in range(0,runtime):
+        initial()
+        MemoriseBestSource()
+        for iter in range(0,maxCycle):
+            SendEmployedBees()
+            CalculateProbabilities()
+            SendOnlookerBees()
+            MemoriseBestSource()
+            SendScoutBees()
+        for j in range(0,D):
+            print("GlobalParama[j]",GlobalParams[j])
+        print("run:",run+1,GlobalMin)
+        GlobalMins[run]=GlobalMin
+        mean=mean+GlobalMin
+    mean=mean/runtime
+    print("means of",runtime,"runs:",mean)
+    b=numpy.zeros([foods.shape[0],foods.shape[1]])
+    b=numpy.copy(foods)
+    cv2.imwrite('useforwatershed.tif',b)
+    plt.imshow(foods)
+    plt.show()
+    
+def Watershed():
+    image=skimage.io.imread('useforwatershed.TIF', as_grey=True)
+  
+    # denoise image
+    denoised = rank.median(image, disk(10))
+      
+    # find continuous region (low gradient) --> markers
+    markers = rank.gradient(denoised, disk(5)) < 10
+    markers = ndimage.label(markers)[0]
+      
+    #local gradient
+    gradient = rank.gradient(denoised, disk(2))
+      
+    # process the watershed
+    labels = watershed(gradient, markers)
+      
+    # display results
+    fig, axes = plt.subplots(ncols=4, figsize=(8, 2.7))
+    ax0, ax1, ax2, ax3 = axes
+      
+    ax0.imshow(image, cmap=plt.cm.gray, interpolation='nearest')
+    ax1.imshow(gradient, cmap=plt.cm.spectral, interpolation='nearest')
+    ax2.imshow(markers, cmap=plt.cm.spectral, interpolation='nearest')
+    ax3.imshow(image, cmap=plt.cm.gray, interpolation='nearest')
+    ax3.imshow(labels, cmap=plt.cm.spectral, interpolation='nearest', alpha=.7)
+      
+    for ax in axes:
+        ax.axis('off')
+      
+    plt.subplots_adjust(hspace=0.01, wspace=0.01, top=1, bottom=0, left=0, right=1)
+    plt.show()
+
+    
+
+
+def openFile():
+    global filename
+    filename = askopenfilename()
+    root.destroy()
+
+
+if __name__ == '__main__':
+
+    root = Tk()
+    ttk.Style().configure('green/black.TButton', foreground='blue', background='green')
+    ttk.Style().configure('yellow.TButton', foreground='red', background='green')
+    #C=Button(top, text='File Open', bg="red", command = openFile)
+    #C.pack()
+    top.configure(background="black")
+    w = Label(top, fg='yellow',bg='black' ,text="BRAIN TUMOUR DETECTION", font=("Helvetica", 24))
+    w.pack(padx=20,pady=20)
+    C=ttk.Button(top, text='File Open',  style='yellow.TButton', command = openFile)
+    C.pack(padx=50, pady=50)
+
+
+    #B =Button(top, text ="Pre-Processing", width=200, height=7, command = helloCallBack)
+    #B.pack()
+
+    F =ttk.Button(top, text ="Pre-Processing", width=50, style='green/black.TButton', command = process)
+    F.pack(padx=50, pady=50)
+
+    B=ttk.Button(top, text ="Processing-FCM", width=50, style='green/black.TButton', command =FCM)
+    B.pack(padx=30, pady=30)
+    D1 =ttk.Button(top, text ="Processing-ABC", width=50, style='green/black.TButton', command =ABC)
+    D1.pack(padx=30, pady=30)
+    E=ttk.Button(top, text ="Post-Processing", width=50, style='green/black.TButton', command = Watershed)
+    E.pack(padx=30, pady=30)
+
+    #C.pack()
+    #F.place(height=700, width=100)
+    root.mainloop()
