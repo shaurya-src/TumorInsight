@@ -239,34 +239,71 @@ def FCM():
 
 
 
-            def eucledian_dist(self,a,b):
-                return np.linalg.norm(a-b)
+        def eucledian_dist(self,a,b):
+            return np.linalg.norm(a-b)
 
-            def form_clusters(self):
-                d = 100
-                if self.max_iter != -1:
-                    for i in range(self.max_iter):
-                        print("loop : " , int(i))
-                        self.update_C()
-                        #temp = np.copy(self.U)
-                        temp = np.copy(self.U_new)
-                        self.update_U()
-                        self.compute_intuitionistic_U()
-                        self.computeNew_U()
-                        d = sum(abs(sum(self.U_new - temp)))
-                        print("THIS IS D")
-                        print(d)
-                        self.segmentImage(i)
-                        if d < self.epsilon:
-                            break
-                else:
-                    i = 0
-                    while d > self.epsilon:
-                        self.update_C()
-                        temp = np.copy(self.U)
-                        self.update_U()
-                        d = sum(abs(sum(self.U - temp)))
-                        print("loop : " , int(i))
-                        print(d)
-                        self.segmentImage(i)
-                        i += 1
+        def form_clusters(self):
+            d = 100
+            if self.max_iter != -1:
+                for i in range(self.max_iter):
+                    print("loop : " , int(i))
+                    self.update_C()
+                    #temp = np.copy(self.U)
+                    temp = np.copy(self.U_new)
+                    self.update_U()
+                    self.compute_intuitionistic_U()
+                    self.computeNew_U()
+                    d = sum(abs(sum(self.U_new - temp)))
+                    print("THIS IS D")
+                    print(d)
+                    self.segmentImage(i)
+                    if d < self.epsilon:
+                        break
+            else:
+                i = 0
+                while d > self.epsilon:
+                    self.update_C()
+                    temp = np.copy(self.U)
+                    self.update_U()
+                    d = sum(abs(sum(self.U - temp)))
+                    print("loop : " , int(i))
+                    print(d)
+                    self.segmentImage(i)
+                    i += 1
+
+        def segmentImage(self,image_count):
+            self.result = np.zeros(shape=(self.numPixels,1))
+            self.result = np.argmax(self.U, axis = 1)
+            global Y
+            self.Y = np.copy(self.X.astype(np.uint8))
+            #a = raw_input("press any key!")
+            for i in xrange(self.numPixels):
+                self.Y[i] = self.C[self.result[i]].astype(np.int)
+                #print(self.Y[i])
+            self.Y = self.Y.reshape(self.numPixels ** 0.5,self.numPixels ** 0.5)
+            #self.Y = self.Y.reshape(75,75)
+            print("THIS IS WHAT WE WANT")
+            print(self.Y,self.Y.shape,self.Y.dtype)
+            cv2.imwrite('output_sifcm/' + str(image_count) + '.jpg' , self.Y)
+            image_count += 1
+            cv2.imshow('image',self.Y)
+            b=numpy.zeros([self.Y.shape[0],self.Y.shape[1]])
+            b=numpy.copy(self.Y)
+            cv2.imwrite('usedforabc.TIF', b)
+            #cv2.waitKey(0)
+            #cv2.destroyAllWindows()
+
+
+
+    def main():
+        #cluster = FCM('afcm1.jpg',2,0.01,300)
+        #cluster = FCM('MRI.jpg',3,0.00005,100)
+        cluster = FCM('color_img.tif',3,0.05,100)
+        cluster.form_clusters()
+        cluster.calculate_scores()
+
+        #cluster.calculate_h()
+        #cluster.show_result()
+
+    if __name__ == '__main__':
+            main()
