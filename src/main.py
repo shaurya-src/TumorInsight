@@ -37,7 +37,8 @@ neighbor = 0
 param2change = 0
 GlobalMin = 0
 run = 0
-
+blur = None
+Y = None
 
 def process():
     img = cv2.imread(filename)
