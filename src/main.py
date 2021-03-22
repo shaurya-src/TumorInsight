@@ -277,7 +277,7 @@ def FCM():
             global Y
             self.Y = np.copy(self.X.astype(np.uint8))
             #a = raw_input("press any key!")
-            for i in xrange(self.numPixels):
+            for i in range(self.numPixels):
                 self.Y[i] = self.C[self.result[i]].astype(np.int)
                 #print(self.Y[i])
             self.Y = self.Y.reshape(self.numPixels ** 0.5,self.numPixels ** 0.5)
@@ -287,8 +287,8 @@ def FCM():
             cv2.imwrite('output_sifcm/' + str(image_count) + '.jpg' , self.Y)
             image_count += 1
             cv2.imshow('image',self.Y)
-            b=numpy.zeros([self.Y.shape[0],self.Y.shape[1]])
-            b=numpy.copy(self.Y)
+            b=np.zeros([self.Y.shape[0],self.Y.shape[1]])
+            b=np.copy(self.Y)
             cv2.imwrite('usedforabc.TIF', b)
             #cv2.waitKey(0)
             #cv2.destroyAllWindows()
@@ -465,8 +465,8 @@ def ABC():
         mean=mean+GlobalMin
     mean=mean/runtime
     print("means of",runtime,"runs:",mean)
-    b=numpy.zeros([foods.shape[0],foods.shape[1]])
-    b=numpy.copy(foods)
+    b=np.zeros([foods.shape[0],foods.shape[1]])
+    b=np.copy(foods)
     cv2.imwrite('useforwatershed.tif',b)
     plt.imshow(foods)
     plt.show()
