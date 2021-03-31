@@ -1,10 +1,10 @@
-<p align="center">
-  <img src="https://github.com/shoheiyokoyama/Assets/blob/master/Gemini/logo.png" width="500">
-</p>
+<code>
+  <h1 align="center">TumorInsight</h1>
+</code>
 
 # Overview
 
-<img src="https://github.com/shoheiyokoyama/Assets/blob/master/Gemini/demo-circle-rotation.gif" align="left">
+<!-- <img src="https://github.com/shoheiyokoyama/Assets/blob/master/Gemini/demo-circle-rotation.gif" align="left"> -->
 
 ## What is the `Project`?
 
