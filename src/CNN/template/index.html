@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <title>neuralBlack</title>
+        <link href="https://fonts.googleapis.com/css?family=Lobster+Two" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,400i,700" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Concert+One" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet"> 
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"/>
+    </head>
+    
+    <header>
+            <nav>
+              <div class="nav-bg"></div>
+              <ul>
+                <li><a href="/"><img src="{{ url_for('static', filename='images/brain_logo.png') }}" height=40px width=40px alt="neuralBlack"/> <p> neuralBlack</p></a></li>
+              </ul>
+            </nav>
+    </header>
+    
+    <label class="switch">
+        <input type="checkbox">
+        <span class="slider round"></span>
+    </label>
+    
+    <body>
+        <div class="card">
+          <div class="container">
+            <div class="upload-btn-wrapper">
+                <form name='bt_classifier' action='/' method='POST' enctype="multipart/form-data">
+                  <center><button class="btn">Upload an Image</button></center>
+                  <input type="file" name="bt_image" id="bt_image"/>
+                  <button type='submit' name='submit' id='sub'>Classify</button>
+                </form>
+            </div>
+          </div>
+        </div>
+    </body>
+
+    <footer>
+      <p style="left: 45.25%;">Made with <img src="{{ url_for('static', filename='images/love.png') }}" height=3% width=3% alt="love"/> by </p><p style="color: white;"><a href="https://github.com/aksh-ai">aksh-ai</a></p>
+    </footer>
+
+</html>
