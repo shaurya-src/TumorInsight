@@ -14,6 +14,8 @@ Praesent hendrerit dapibus dolor nec volutpat. Vivamus tristique rutrum convalli
 hendrerit ante eget lorem aliquet lacinia. Vivamus vel quam ut ante eleifend maximus a in est. Donec id nisi tincidunt, aliquam augue et,
 pretium ligula. Sed gravida in justo id iaculis. Vestibulum at quam a ligula rhoncus fermentum.
 
+Download trained model from [here](https://drive.google.com/file/d/1-rIrzzqpsSg80QG175hjEPv9ilnSHmqK/view?usp=sharing).
+
 ```python
 def main()
     text = "Hello World!"
