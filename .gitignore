@@ -5,3 +5,4 @@ src/__pycache__
 src/CNN/models
 .ipynb_checkpoints
 src/ImageProc/img.jpg
+dataset
