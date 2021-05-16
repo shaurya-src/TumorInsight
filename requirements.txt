@@ -11,3 +11,6 @@ werkzeug~=1.0.1
 scikit-image~=0.18.1
 h5py~=3.2.1
 requests~=2.25.1
+torch~=1.7.1
+selenium~=3.141.0
+flask_sqlalchemy~=2.5.1
