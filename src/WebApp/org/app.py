@@ -33,7 +33,7 @@ for name, child in resnet_model.named_children():
         params.requires_grad = True
 
 resnet_model.to(device)
-resnet_model.load_state_dict(load('./models/bt_resnet50_model.pt', map_location=DEVICE(device)))
+resnet_model.load_state_dict(load('../../CNN/models/bt_resnet50_model.pt', map_location=DEVICE(device)))
 resnet_model.eval()
 
 def preprocess_image(image_bytes):
