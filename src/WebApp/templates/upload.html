@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+    <!-- Favicons -->
+    <link href="{{ url_for('static',filename='custom/t-icon.png') }}" rel="icon">
+    <link href="{{ url_for('static',filename='custom/t-icon.png') }}" rel="apple-touch-icon">
+
+	<link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Gudea" rel="stylesheet"> 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/hover.css') }}"/>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/animations.css') }}"/>
+
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/upload.css') }}"/>
+
+	<title> MRI Upload | TumorInsight </title>
+
+</head>
+<body>
+	<div class="bgblack" id="front"><div class="bg"></div></div>
+	<div class="fronttext">
+		We are Committed to Fighting Cancer
+	</div>
+	<img class="logopic" src="{{ url_for('static',filename='custom/upload_logo.png') }}">
+	<p class="animated pulse downarrow"><a href="#info"><i class="fa fa-chevron-circle-down"></i></a></p>
+	<div class="infobg"></div>
+	<div class="info" id="info">
+			<p class="infoup">
+				<a href="#front"><i class="material-icons">keyboard_arrow_up</i></a>
+			</p>
+			<p class="infohead">
+				We are Here to Help
+			</p>
+
+		<div class="infocols">
+		<div class="infocol">
+			<p class="infotext infotopic">Symptoms</p>
+			<p class="infotext">
+				Symptoms vary widely or they may not occur at all. Some patients have abnormal bumps, unexplained fevers, night sweats or unintentional weight loss.
+			</p>
+		</div>
+		<div class="infocol">
+			<p class="infotext infotopic">Prevention</p>
+			<p class="infotext">
+				This includes maintaining a healthy lifestyle, avoiding exposure to known cancer-causing substances, and taking medicines or vaccines that can prevent cancer from developing.
+			</p>
+		</div>
+		<div class="infocol infocollast">
+			<p class="infotext infotopic">Causes</p>
+			<p class="infotext">
+				Common causes includes smoking and tobacco, improper diet and physical activity, radiation from the sun and other types of radiation and viruses and other infections.
+
+			</p>
+		</div>
+		</div>
+		<p class="infodown">
+				<a href="#upload"><i class="material-icons">keyboard_arrow_down</i></a>
+		</p>
+	</div>
+	<div class="uploadblack"><div class="uploadbg" id="upload"></div></div>
+	<div class="upload">
+		<p class="uploadup">
+			<a href="#info"><i class="material-icons">keyboard_arrow_up</i></a>
+		</p>
+		<p class="uploadhead">
+			MRI Tumor Detection
+		</p>
+		<p class="uploadtext">
+			Upload your MRI scan image for processing
+		</p>
+		<div class="form">
+			<form name="bt_classifier" id="form1" enctype="multipart/form-data" action="/upload" method="POST">
+				<input class="browse" type="file" name="bt_image" id="bt_image">
+<!--				<input class="submit" type="submit">  	  -->
+				<button type='submit' name='submit' id='sub'>Classify</button>
+			</form>
+		</div>
+
+		<p class="uploadtop">
+				<a href="#front"><i class="material-icons">arrow_upward</i></a>
+		</p>
+	</div>
+</body>
+</html>
