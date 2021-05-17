@@ -114,13 +114,16 @@ def process(img3, b):
     show_images(gray, blur, seg, cont_org, cont_mask)
 
 
-img1 = cv2.imread(f"Datasets/brain_tumor_dataset/yes/{sys.argv[1]}")
+img_name = input("Enter the name of MRI Image: ")
+# img1 = cv2.imread(f"sample_dataset/brain_tumor_dataset/yes/{sys.argv[1]}")
+img1 = cv2.imread(f"sample_dataset/brain_tumor_dataset/yes/{img_name}")
 org = img1.copy()
 process(img1, 144)
 
 for b in range(0):
     process(img1, b)
-    img1 = cv2.imread(f"Datasets/brain_tumor_dataset/yes/{sys.argv[1]}")
+    # img1 = cv2.imread(f"sample_dataset/brain_tumor_dataset/yes/{sys.argv[1]}")
+    img1 = cv2.imread(f"sample_dataset/brain_tumor_dataset/yes/{img_name}")
     k = cv2.waitKey(1) & 0xFF
     print()
     if k == ord('q'):
