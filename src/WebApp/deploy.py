@@ -4,7 +4,7 @@ from flask import Flask, render_template, flash, redirect, url_for, session, log
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = './static/images'
+UPLOAD_FOLDER = '../CNN/test_images'
 ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg']
 
 app = Flask(__name__)
