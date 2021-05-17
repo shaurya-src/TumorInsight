@@ -8,3 +8,4 @@ src/ImageProc/img.jpg
 dataset
 new_dataset
 database.db
+__pycache__
