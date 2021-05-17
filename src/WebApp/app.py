@@ -1,9 +1,17 @@
-from flask import Flask, render_template, flash, redirect, url_for, session, logging, request
+import os
+import requests
+from flask import Flask, render_template, flash, redirect, url_for, session, logging, request, session
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.utils import secure_filename
+
+UPLOAD_FOLDER = './static/images'
+ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg']
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy(app)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.secret_key = "m4xpl0it"
 
 
 class user(db.Model):
@@ -17,17 +25,53 @@ class user(db.Model):
 def index():
     return render_template("index.html")
 
+
 @app.route("/user")
 def index_auth():
     return render_template("index_auth.html")
+
 
 @app.route("/instruct")
 def instruct():
     return render_template("instructions.html")
 
-@app.route("/upload")
+
+@app.route('/pred_page')
+def pred_page():
+    pred = session.get('pred_label', None)
+    f_name = session.get('filename', None)
+    return render_template('pred.html', pred=pred, f_name=f_name)
+
+
+@app.route("/upload", methods=['POST', 'GET'])
 def upload():
+    try:
+        if request.method == 'POST':
+            f = request.files['bt_image']
+            filename = str(f.filename)
+
+            if filename != '':
+                ext = filename.split(".")
+
+                if ext[1] in ALLOWED_EXTENSIONS:
+                    filename = secure_filename(f.filename)
+
+                    f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+                    with open(os.path.join(app.config['UPLOAD_FOLDER'], filename), 'rb') as img:
+                        predicted = requests.post("http://localhost:5000/predict", files={"file": img}).json()
+
+                    session['pred_label'] = predicted['class_name']
+                    session['filename'] = filename
+
+                    return redirect(url_for('pred_page'))
+
+    except Exception as e:
+        print("Exception\n")
+        print(e, '\n')
+
     return render_template("upload.html")
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
