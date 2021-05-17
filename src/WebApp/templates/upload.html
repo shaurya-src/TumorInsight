@@ -74,9 +74,10 @@
 			Upload your MRI scan image for processing
 		</p>
 		<div class="form">
-			<form id="form1" enctype="multipart/form-data" action="/upload" method="post">
+			<form name="bt_classifier" id="form1" enctype="multipart/form-data" action="/upload" method="POST">
 				<input class="browse" type="file" name="images" accept="image/*">
-				<input class="submit" type="submit">  	  
+<!--				<input class="submit" type="submit">  	  -->
+				<button type='submit' name='submit' id='sub'>Classify</button>
 			</form>
 		</div>
 
