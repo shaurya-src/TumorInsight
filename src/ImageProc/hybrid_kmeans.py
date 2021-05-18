@@ -37,6 +37,7 @@ def blur_image(img):
     return blur
 
 
+# Adaptive Histogram enhancement
 def enhance(img):
     clahe = cv2.createCLAHE(clipLimit=1.0, tileGridSize=(8, 8))
     gray = cv2.equalizeHist(img)
