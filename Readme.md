@@ -39,6 +39,8 @@ With this application, people can easily scan the MRI images to detect a tumor, 
 
 # <a name="project-info"> Project Details
 
+  [![Made with Python](https://forthebadge.com/images/badges/made-with-python.svg)](https://github.com/shaurya-src/TumorInsight) [![Made with love](https://forthebadge.com/images/badges/built-with-love.svg)](https://github.com/shaurya-src)
+
 The project uses RESNET50 model for classification of different Brain Tumors into 3 Types. On top of that, we implemented an enhanced K-Means algorithm for segmentation of Brain Tumor from the input image and show the detected position of the Tumor. The algorithm automatically clusters different segments of the MRI image and then applies Thresholding with appropriate intensity to highlight only the tumor segment. For training the model we have used BraTS dataset.
 
 - Download trained model from [here](https://drive.google.com/file/d/1-rIrzzqpsSg80QG175hjEPv9ilnSHmqK/view?usp=sharing)
@@ -96,8 +98,6 @@ Any contributions you make are **greatly appreciated**.
   <img src="https://img.shields.io/badge/Library-PyTorch-success?style=flat-square&logo=PyTorch&logoColor=white">
 
   [![Generic badge](https://img.shields.io/badge/Web-Application-teal.svg?style=for-the-badge)](https://github.com/shaurya-src) [![Generic badge](https://img.shields.io/badge/Framework-Flask-orange.svg?style=for-the-badge&logo=flask&logoColor=white)](https://github.com/shaurya-src)
-
-  [![Made with Python](https://forthebadge.com/images/badges/made-with-python.svg)](https://github.com/shaurya-src/TumorInsight) [![Made with love](https://forthebadge.com/images/badges/built-with-love.svg)](https://github.com/shaurya-src)
   
 </p>
 
