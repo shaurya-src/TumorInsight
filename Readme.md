@@ -4,7 +4,7 @@
 
 # Overview
 
-<img src="https://github.com/shaurya-src/TumorInsight/blob/main/Assets/Snap.png" align="left">
+<img src="https://github.com/shaurya-src/TumorInsight/blob/main/Assets/Snap.png" align="left"> <br>
 
 ## What is `TumorInsight`?
 
