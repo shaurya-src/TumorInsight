@@ -4,47 +4,32 @@
 
 # Overview
 
-<!-- <img src="https://github.com/shoheiyokoyama/Assets/blob/master/Gemini/demo-circle-rotation.gif" align="left"> -->
+<img src="https://github.com/shaurya-src/TumorInsight/blob/main/Assets/Snap.png" align="left">
 
 ## What is `TumorInsight`?
 
-`Project` is Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ut porttitor risus, in ultricies arcu. Donec justo ligula, faucibus sed gravida sit
-amet, pulvinar a leo. Ut porta volutpat sem non tempor. Mauris sit amet arcu vitae justo blandit semper. Ut faucibus vestibulum pulvinar.
-Praesent hendrerit dapibus dolor nec volutpat. Vivamus tristique rutrum convallis. Praesent dignissim sed est ut pharetra. Donec
-hendrerit ante eget lorem aliquet lacinia. Vivamus vel quam ut ante eleifend maximus a in est. Donec id nisi tincidunt, aliquam augue et,
-pretium ligula. Sed gravida in justo id iaculis. Vestibulum at quam a ligula rhoncus fermentum.
+`TumorInsight` provides a powerful model for easy detection and classification of Brain Tumors right at your fingertips.
+Our main aim is to provide faster diagnostic results so that treatment can be given faster to those who require.
+With this application, people can easily scan the MRI images to detect a tumor, without any medical assist, thus making the process faster and more feasible.
 
-Download trained model from [here](https://drive.google.com/file/d/1-rIrzzqpsSg80QG175hjEPv9ilnSHmqK/view?usp=sharing).
-
-```python
-def main()
-    text = "Hello World!"
-    return text
-
-if __name__ == '__main__':
-    text = main()
-    print(text)
-```
+- Check the deployed heroku app from [here](https://tumorinsight-app.herokuapp.com/)
 
 # Features
 
-![RepoSize](https://img.shields.io/github/repo-size/shaurya-src/Web-Automation?logo=GitHub&style=flat-square)
-![License](https://img.shields.io/github/license/shaurya-src/Web-Automation?logo=GitLab&style=flat-square)
-![LastCommit](https://img.shields.io/github/last-commit/shaurya-src/Web-Automation?logo=Git&style=flat-square)
+![RepoSize](https://img.shields.io/github/repo-size/shaurya-src/TumorInsight?logo=GitHub&style=flat-square)
+![License](https://img.shields.io/github/license/shaurya-src/TumorInsight?logo=GitLab&style=flat-square)
+![LastCommit](https://img.shields.io/github/last-commit/shaurya-src/TumorInsight?logo=Git&style=flat-square)
 
 <img src="https://media.giphy.com/media/xT0Gqn9yuw8hnPGn5K/giphy.gif" align="right" width="300" height="300">
 
-- [x] Lorem ipsum dolor sit amet
-- [x] Lorem ipsum dolor sit amet
-- [x] Lorem ipsum dolor sit amet
-- [x] Lorem ipsum dolor sit amet
-- [x] Lorem ipsum dolor sit amet
-- [x] *And More...*
+- [x] Easy to use
+- [x] Minimal web application
+- [x] Accurate Results
+- [x] Supports all image formats
 
 # Contents
 
 - [Project Details](#project-info)
-- [Usage](#usage)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Contribute](#contri)
@@ -54,50 +39,42 @@ if __name__ == '__main__':
 
 # <a name="project-info"> Project Details
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ut porttitor risus, in ultricies arcu. Donec justo ligula, faucibus sed gravida sit
-amet, pulvinar a leo. Ut porta volutpat sem non tempor. Mauris sit amet arcu vitae justo blandit semper. Ut faucibus vestibulum pulvinar.
-Praesent hendrerit dapibus dolor nec volutpat. Vivamus tristique rutrum convallis. Praesent dignissim sed est ut pharetra. Donec
-hendrerit ante eget lorem aliquet lacinia. Vivamus vel quam ut ante eleifend maximus a in est. Donec id nisi tincidunt, aliquam augue et,
-pretium ligula. Sed gravida in justo id iaculis. Vestibulum at quam a ligula rhoncus fermentum.
+The project uses RESNET50 model for classification of different Brain Tumors into 3 Types. On top of that, we implemented an enhanced K-Means algorithm for segmentation of Brain Tumor from the input image and show the detected position of the Tumor. The algorithm automatically clusters different segments of the MRI image and then applies Thresholding with appropriate intensity to highlight only the tumor segment. For training the model we have used BraTS dataset.
 
-In addition, you can also customize the following properties according to the need.
-
-- Lorem ipsum
-- Lorem ipsum
-- Lorem ipsum
-
-# <a name="usage"> Usage
-
-1. ***Lorem Ipsum***
-
-`Project` is designed to be easy to use. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-
-2. ***Lorem Ipsum***
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-
-3. ***Lorem Ipsum***
-
-Finally, call `func(arg)` in `main()`
-
-```python
-def func(arg):
-    return arg
-
-func(input())
-```
+- Download trained model from [here](https://drive.google.com/file/d/1-rIrzzqpsSg80QG175hjEPv9ilnSHmqK/view?usp=sharing)
 
 ## <a name="requirements"> Requirements
 
-- Xcode 10.2.1
-- Swift 5.0
+To install all requirements run: `pip install -r requirements.txt`
+
+- numpy~=1.20.1
+- pillow~=8.2.0
+- torchvision~=0.8.2
+- opencv-python~=4.5.2.52
+- matplotlib~=3.3.4
+- pandas~=1.2.4
+- seaborn~=0.11.1
+- scikit-learn~=0.24.1
+- flask~=1.1.2
+- werkzeug~=1.0.1
+- scikit-image~=0.18.1
+- h5py~=3.2.1
+- requests~=2.25.1
+- torch~=1.7.1
+- selenium~=3.141.0
+- flask_sqlalchemy~=2.5.1
+- imutils~=0.5.4
 
 ## <a name="installation"> Installation
 
 Follow these steps to use *this project*.
 
 1. Clone the repository.
-2. Lorem ipsum
+2. Install all the requirements.
+3. Download the trained model from given link.
+4. Save the model in CNN/models.
+5. Run WebApp/app.py to start the backend server.
+6. Run WebApp/deploy.py to run the Web Application.
 
 ## <a name="contri"> Contribute
 
@@ -116,8 +93,12 @@ Any contributions you make are **greatly appreciated**.
   <img src="https://img.shields.io/badge/Editor-VS_Code-success?style=flat-square&logo=Visual-Studio-Code&logoColor=white&color=blue">
   <img src="https://img.shields.io/badge/Windows-10-success?style=flat-square&logo=Windows&logoColor=white">
 
-  <img src="https://img.shields.io/badge/Library-TensorFlow-success?style=flat-square&logo=TensorFlow&logoColor=white">
-  <img src="https://img.shields.io/badge/Library-Matplotlib-success?style=flat-square&logo=GraphQL&logoColor=white&color=purple">
+  <img src="https://img.shields.io/badge/Library-PyTorch-success?style=flat-square&logo=PyTorch&logoColor=white">
+
+  [![Generic badge](https://img.shields.io/badge/Web-Application-teal.svg?style=for-the-badge)](https://github.com/shaurya-src) [![Generic badge](https://img.shields.io/badge/Framework-Flask-orange.svg?style=for-the-badge&logo=flask&logoColor=white)](https://github.com/shaurya-src)
+
+  [![Made with Python](https://forthebadge.com/images/badges/made-with-python.svg)](https://github.com/shaurya-src/TumorInsight) [![Made with love](https://forthebadge.com/images/badges/built-with-love.svg)](https://github.com/shaurya-src)
+  
 </p>
 
 ## <a name="license"> License
